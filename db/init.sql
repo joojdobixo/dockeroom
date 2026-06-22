@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(60) NOT NULL,
+    role ENUM('usuario', 'admin') NOT NULL DEFAULT 'usuario',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -30,9 +31,9 @@ CREATE TABLE IF NOT EXISTS reservas (
     CHECK (data_inicio < data_fim)
 );
 
-INSERT INTO usuarios (nome, email, senha) 
-VALUES ('Admin', 'admin@email.com', '$2b$10$<hash_gerado_via_bcrypt>')
-ON DUPLICATE KEY UPDATE nome = VALUES(nome), senha = VALUES(senha);
+INSERT INTO usuarios (nome, email, senha, role) 
+VALUES ('Admin', 'admin@email.com', '$2b$10$<hash_gerado_via_bcrypt_para_123456>', 'admin')
+ON DUPLICATE KEY UPDATE nome = VALUES(nome), senha = VALUES(senha), role = VALUES(role);
 
 INSERT INTO salas (nome, capacidade, descricao, recursos) VALUES
 ('Sala A', 10, 'Sala com projetor', 'Projetor, quadro branco'),
@@ -40,5 +41,5 @@ INSERT INTO salas (nome, capacidade, descricao, recursos) VALUES
 ON DUPLICATE KEY UPDATE nome = VALUES(nome);
 
 INSERT INTO reservas (sala_id, usuario_id, responsavel_nome, titulo, data_inicio, data_fim, status)
-VALUES (1, 1, 'Admin', 'Reunião de projeto', '2026-06-23 09:00:00', '2026-06-23 10:00:00', 'ativa')
+VALUES (1, 1, 'Admin', 'Reunião de projeto', '2026-07-01 09:00:00', '2026-07-01 10:00:00', 'ativa')
 ON DUPLICATE KEY UPDATE titulo = VALUES(titulo);
