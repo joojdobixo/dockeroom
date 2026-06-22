@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    senha senha VARCHAR(50) NOT NULL,
+    senha VARCHAR(60) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS reservas (
 );
 
 INSERT INTO usuarios (nome, email, senha) 
-VALUES ('Admin', 'admin@email.com', '123456')
+VALUES ('Admin', 'admin@email.com', '$2b$10$<hash_gerado_via_bcrypt>')
 ON DUPLICATE KEY UPDATE nome = VALUES(nome), senha = VALUES(senha);
 
 INSERT INTO salas (nome, capacidade, descricao, recursos) VALUES
