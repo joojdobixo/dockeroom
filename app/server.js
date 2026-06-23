@@ -4,10 +4,14 @@ const cors = require('cors');
 const usuariosRoutes = require('./routes/usuarios');
 const authRoutes = require('./routes/auth');
 const salasRoutes = require('./routes/salas');
+const reservasRoutes = require('./routes/reservas');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:8080',
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -25,6 +29,7 @@ app.get('/health', (req, res) => {
 app.use('/auth', authRoutes);
 app.use('/usuarios', usuariosRoutes);
 app.use('/salas', salasRoutes);
+app.use('/reservas', reservasRoutes);
 
 app.listen(3000, () => {
   console.log('API rodando na porta 3000');

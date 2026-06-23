@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS reservas (
 );
 
 INSERT INTO usuarios (nome, email, senha, role) 
-VALUES ('Admin', 'admin@email.com', '$2b$10$<hash_gerado_via_bcrypt_para_123456>', 'admin')
+VALUES ('Admin', 'admin@email.com', '$2b$10$/A7YjOUFcCtybq.MBM/8Kut6K/gf38sTN0gQcir19o/czpFF0gvnG', 'admin')
 ON DUPLICATE KEY UPDATE nome = VALUES(nome), senha = VALUES(senha), role = VALUES(role);
 
 INSERT INTO salas (nome, capacidade, descricao, recursos) VALUES
